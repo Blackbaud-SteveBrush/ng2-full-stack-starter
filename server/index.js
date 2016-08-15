@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 const path = require('path');
-const lists = require(path.join(__dirname, 'middleware', 'lists'));
+const api = require(path.join(__dirname, 'middleware', 'api'));
+
 const PORT = process.env.PORT || '4000';
 
 // Express app
@@ -11,18 +12,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api', lists());
-app.get('/', (request, response) => {
-    response.render('home', {});
+app.use('/api', api());
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
-
-// View engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'handlebars');
-app.engine('handlebars', handlebars({
-    defaultLayout: 'main',
-    layoutsDir: path.join(__dirname, 'views', 'layouts')
-}));
 
 // Static files
 app.use(express.static(path.resolve(__dirname + '/../dist')));

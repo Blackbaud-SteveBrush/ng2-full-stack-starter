@@ -4,8 +4,8 @@ dist
 node_modules
 jspm_packages
 link-checker-results.txt
-**/*npm-debug.log.*
-public/*.js
+npm-debug.log
+public/**/*.js
 e2e/**/*.js
 *.js.map
 _test-output

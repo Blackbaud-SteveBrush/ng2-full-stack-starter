@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 module.exports = function () {
     router
-        .route('/lists')
+        .route('/resources')
         .get((request, response) => {
             response.json({
                 message: "GET success."
