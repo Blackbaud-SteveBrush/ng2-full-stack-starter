@@ -4,10 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+    debug: true,
+    devtool: 'cheap-module-source-map',
+
     entry: {
-        'polyfills': './public/app/polyfills.ts',
-        'vendor': './public/app/vendor.ts',
-        'app': './public/app/main.ts'
+        'polyfills': './public/polyfills.ts',
+        'vendor': './public/vendor.ts',
+        'app': './public/main.ts'
     },
 
     output: {
@@ -16,22 +19,30 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['', '.js', '.ts']
+        extensions: ['', '.ts', '.js', '.json'],
+        root: helpers.root('public'),
+        modulesDirectories: ['node_modules']
     },
 
     module: {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'awesome-typescript-loader'
+                loader: 'awesome-typescript-loader',
+                exclude: [/\.(spec|e2e)\.ts$/]
             },
             {
                 test: /\.(hbs|handlebars)$/,
                 loader: 'handlebars-loader'
             },
             {
+                test: /\.json$/,
+                loader: 'json-loader'
+            },
+            {
                 test: /\.html$/,
-                loader: 'raw-loader'
+                loader: 'raw-loader',
+                exclude: [helpers.root('public/index.html')]
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
@@ -59,5 +70,14 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'public/index.html'
         })
-    ]
+    ],
+
+    node: {
+        global: 'window',
+        crypto: 'empty',
+        process: true,
+        module: false,
+        clearImmediate: false,
+        setImmediate: false
+    }
 };

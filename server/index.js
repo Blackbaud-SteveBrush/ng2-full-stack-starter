@@ -6,6 +6,13 @@ const api = require(path.join(__dirname, 'middleware', 'api'));
 
 const PORT = process.env.PORT || '4000';
 
+// Database
+mongoose.connect('mongodb://localhost:27017/demo');
+mongoose.connection.on('error', function () {
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
+});
+
 // Express app
 const app = express();
 app.use(bodyParser.json());
