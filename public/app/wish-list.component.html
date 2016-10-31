@@ -1,0 +1,9 @@
+<div *ngIf="wishList">
+  <h2>{{wishList.name}}</h2>
+  <div class="form">
+    <div class="form-group">
+      <label>Name:</label>
+      <input class="form-control" type="text" [(ngModel)]="wishList.name">
+    </div>
+  </div>
+</div>

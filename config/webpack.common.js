@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const helpers = require('./helpers');
 
 module.exports = {
@@ -52,13 +51,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: helpers.root('public', 'app'),
-                loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+                loader: 'raw-loader'
             },
             {
-            test: /\.css$/,
-                include: helpers.root('public', 'app'),
-                loader: 'raw'
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loaders: ['raw-loader', 'sass-loader']
             }
         ]
     },
