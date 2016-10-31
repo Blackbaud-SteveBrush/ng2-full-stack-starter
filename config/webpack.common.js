@@ -1,11 +1,17 @@
-const helpers = require('./helpers');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const helpers = require('./helpers');
 
 module.exports = {
-    debug: true,
-    devtool: 'cheap-module-source-map',
+
+    /**
+     * Developer tool to enhance debugging
+     *
+     * See: http://webpack.github.io/docs/configuration.html#devtool
+     * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
+     */
+    devtool: 'cheap-module-eval-source-map',
 
     entry: {
         'polyfills': './public/polyfills.ts',
@@ -28,12 +34,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'awesome-typescript-loader',
+                loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
                 exclude: [/\.(spec|e2e)\.ts$/]
-            },
-            {
-                test: /\.(hbs|handlebars)$/,
-                loader: 'handlebars-loader'
             },
             {
                 test: /\.json$/,

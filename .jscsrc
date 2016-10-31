@@ -1,6 +1,9 @@
 {
-    "preset": "crockford",
-    "disallowDanglingUnderscores": null,
-    "disallowTrailingWhitespace": null,
-    "requireLineFeedAtFileEnd": null
+  "preset": "crockford",
+  "disallowDanglingUnderscores": false,
+  "disallowTrailingWhitespace": false,
+  "excludeFiles": [
+    "./!(public|server|bin)",
+    "./public/app/libs/**"
+  ]
 }

@@ -3,13 +3,13 @@ const router = require('express').Router();
 module.exports = function () {
     router
         .route('/resources')
-        .get((request, response) => {
-            response.json({
+        .get((req, res) => {
+            res.json({
                 message: "GET success."
             });
         })
-        .post((request, response) => {
-            response.json({
+        .post((req, res) => {
+            res.json({
                 message: "POST success."
             });
         });
