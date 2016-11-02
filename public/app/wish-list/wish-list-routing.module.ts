@@ -12,8 +12,8 @@ const routes: Routes = [
     component: WishListComponent,
     children: [
       { path: '', component: WishListListComponent },
-      { path: ':id', component: WishListDetailComponent },
       { path: 'create', component: WishListFormComponent },
+      { path: ':id', component: WishListDetailComponent },
       { path: ':id/edit', component: WishListFormComponent }
     ]
   }

@@ -11,19 +11,24 @@ import { WishListService } from './wish-list.service';
   template: require('./wish-list-form.component.html')
 })
 export class WishListFormComponent implements OnInit {
-  wishList: WishList;
+
+  formData: WishList;
 
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private wishListService: WishListService) {}
+    private wishListService: WishListService) { }
 
   ngOnInit(): void {
+    this.formData = new WishList();
     this.route.params.forEach((params: Params) => {
       let id = parseInt(params['id']);
+      if (!id) {
+        return;
+      }
       this.wishListService.getById(id)
         .then((data: WishList) => {
-          this.wishList = data;
+          this.formData = data;
         });
     });
   }

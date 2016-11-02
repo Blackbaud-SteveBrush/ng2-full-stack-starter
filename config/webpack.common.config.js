@@ -20,14 +20,20 @@ module.exports = {
 
     output: {
         path: helpers.root('dist'),
-        publicPath: helpers.root('dist'),
         filename: '[name].js'
     },
 
     devServer: {
-        historyApiFallback: {
-            index: helpers.root('dist', 'index.html')
-        }
+        port: 8080,
+        contentBase: 'dist/',
+        inline: true,
+        progress: true,
+        profile: true,
+        watch: true
+        // All 404 requests are routed to our Angular app.
+        // historyApiFallback: {
+        //     index: helpers.root('dist', 'index.html')
+        // }
     },
 
     resolve: {
@@ -43,7 +49,10 @@ module.exports = {
                 loaders: [
                     'awesome-typescript-loader',
                     'angular2-template-loader',
-                    //'angular2-router-loader'
+
+                    // Allows us to lazy load modules with webpack:
+                    // https://github.com/angular/angular/issues/11625
+                    'angular2-router-loader'
                 ],
                 exclude: [/\.(spec|e2e)\.ts$/]
             },
@@ -83,7 +92,8 @@ module.exports = {
 
         // Where to insert script and link tags:
         new HtmlWebpackPlugin({
-            template: 'public/index.html'
+            template: './public/index.html',
+            //filename: helpers.root('dist/index.html')
         })
     ],
 

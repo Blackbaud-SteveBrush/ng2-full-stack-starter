@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from "@angular/common";
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
+import { SharedModule } from '../shared';
 import { WishListComponent } from './wish-list.component';
 import { WishListListComponent } from './wish-list-list.component';
 import { WishListDetailComponent } from './wish-list-detail.component';
@@ -13,8 +11,7 @@ import { WishListService } from './wish-list.service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
+    SharedModule,
     WishListRoutingModule
   ],
   declarations: [
