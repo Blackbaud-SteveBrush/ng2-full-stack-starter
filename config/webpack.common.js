@@ -20,7 +20,14 @@ module.exports = {
 
     output: {
         path: helpers.root('dist'),
+        publicPath: helpers.root('dist'),
         filename: '[name].js'
+    },
+
+    devServer: {
+        historyApiFallback: {
+            index: helpers.root('dist', 'index.html')
+        }
     },
 
     resolve: {
@@ -33,7 +40,11 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+                loaders: [
+                    'awesome-typescript-loader',
+                    'angular2-template-loader',
+                    //'angular2-router-loader'
+                ],
                 exclude: [/\.(spec|e2e)\.ts$/]
             },
             {
@@ -63,7 +74,11 @@ module.exports = {
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: [
+                'app',
+                'vendor',
+                'polyfills'
+            ]
         }),
 
         // Where to insert script and link tags:

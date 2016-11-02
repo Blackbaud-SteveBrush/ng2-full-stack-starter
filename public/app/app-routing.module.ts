@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WishListsComponent } from './wish-lists.component';
-import { WishListComponent } from './wish-list.component';
+import { CanDeactivateGuard } from './can-deactivate-guard.service';
+//import { WishListListComponent } from './wish-list/wish-list-list.component';
 
 const routes: Routes = [
   {
@@ -11,16 +11,24 @@ const routes: Routes = [
   },
   {
     path: 'wish-lists',
-    component: WishListsComponent
-  },
-  {
-    path: 'wish-list/:id',
-    component: WishListComponent
+    loadChildren: () => new Promise(resolve => {
+      (require as any).ensure([], (require: any) => {
+        resolve(require('./wish-list/index').WishListModule);
+      });
+    })
+    //loadChildren: './wish-list/index#WishListModule'
+    //component: WishListListComponent
+    // loadChildren: () => new Promise(resolve => {
+    //   (require as any).ensure([], require => {
+    //     resolve(require('./path/to/yourmodule').ModuleName);
+    //   })
+    // })
   }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  providers: [CanDeactivateGuard]
 })
 export class AppRoutingModule {}

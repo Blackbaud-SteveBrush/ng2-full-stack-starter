@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WishList } from './wish-list';
+import { WishList } from './wish-list.model';
 
 @Injectable()
 export class WishListService {

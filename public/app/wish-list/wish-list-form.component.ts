@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { WishList } from './wish-list';
+import { WishList } from './wish-list.model';
 import { WishListService } from './wish-list.service';
 
+
 @Component({
-  selector: 'wish-list-detail',
-  template: require('./wish-list.component.html')
+  selector: 'wish-list-form',
+  template: require('./wish-list-form.component.html')
 })
-export class WishListComponent implements OnInit {
+export class WishListFormComponent implements OnInit {
   wishList: WishList;
 
   constructor(

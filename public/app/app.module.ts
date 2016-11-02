@@ -4,29 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { WishListComponent } from './wish-list.component';
-import { WishListsComponent } from './wish-lists.component';
-
 import { AppRoutingModule } from './app-routing.module';
-import { WishListService } from './wish-list.service';
+import { WishListModule } from './wish-list/';
+
 
 @NgModule({
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    FormsModule,
-    AppRoutingModule
+    WishListModule
   ],
-  declarations: [
-    AppComponent,
-    WishListComponent,
-    WishListsComponent
-  ],
-  bootstrap: [
-    AppComponent
-  ],
-  providers: [
-    Title,
-    WishListService
-  ]
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: [Title]
 })
 export class AppModule { }
