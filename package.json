@@ -4,10 +4,11 @@
   "description": "Angular 2.0, Webpack, ExpressJS, Mongoose",
   "main": "server.js",
   "scripts": {
-    "build:dev": "rimraf -- dist && webpack --progress --profile --colors --display-error-details --display-cached",
-    "start": "rimraf -- dist && webpack-dev-server --config config/webpack.common.config.js",
+    "build:dev": "rimraf -- dist && webpack --config ./config/webpack.dev.config.js",
+    "start": "webpack-dev-server --config ./config/webpack.dev.config.js",
     "postinstall": "typings install",
-    "server": "node ./bin/start.js"
+    "server": "node ./bin/start.js",
+    "server:production": "npm run build:dev && export NODE_ENV=production && node ./bin/start.js"
   },
   "author": "",
   "license": "ISC",
@@ -50,6 +51,7 @@
     "typescript": "^2.0.3",
     "typings": "^1.3.2",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.15.0"
   }
 }

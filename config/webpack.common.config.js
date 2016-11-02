@@ -1,17 +1,8 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const helpers = require('./helpers');
+const BUILD_PATH = 'dist';
 
 module.exports = {
-
-    /**
-     * Developer tool to enhance debugging
-     *
-     * See: http://webpack.github.io/docs/configuration.html#devtool
-     * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
-     */
-    devtool: 'cheap-module-eval-source-map',
-
     entry: {
         'polyfills': './public/polyfills.ts',
         'vendor': './public/vendor.ts',
@@ -19,21 +10,10 @@ module.exports = {
     },
 
     output: {
-        path: helpers.root('dist'),
-        filename: '[name].js'
-    },
-
-    devServer: {
-        port: 8080,
-        contentBase: 'dist/',
-        inline: true,
-        progress: true,
-        profile: true,
-        watch: true
-        // All 404 requests are routed to our Angular app.
-        // historyApiFallback: {
-        //     index: helpers.root('dist', 'index.html')
-        // }
+        path: helpers.root(BUILD_PATH),
+        publicPath: '/',
+        filename: '[name].js',
+        chunkFilename: '[id].chunk.js'
     },
 
     resolve: {
@@ -88,12 +68,6 @@ module.exports = {
                 'vendor',
                 'polyfills'
             ]
-        }),
-
-        // Where to insert script and link tags:
-        new HtmlWebpackPlugin({
-            template: './public/index.html',
-            //filename: helpers.root('dist/index.html')
         })
     ],
 
