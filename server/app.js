@@ -18,13 +18,22 @@ if (environment === 'production') {
     app.get('/*', (req, res) => {
         res.sendFile(path.join(__dirname, '..', BUILD_PATH, 'index.html'));
     });
+
 } else {
     const webpack = require('webpack');
     const webpackConfig = require(path.join(__dirname, '../config/webpack.dev.config.js'));
     const compiler = webpack(webpackConfig);
+
+    // Route webpack's resources
     app.use(require('webpack-dev-middleware')(compiler, {
         publicPath: webpackConfig.output.publicPath
     }));
+
+    /**
+     * Takes all requests and points them to the index.html file stored
+     * in Webpack's server memory.
+     * https://stackoverflow.com/questions/26845101/webpack-dev-middleware-does-not-compile-output-into-folder/39941763#39941763
+     */
     app.use('/', function (req, res, next) {
         var filename;
         filename = path.join(compiler.outputPath, 'index.html');

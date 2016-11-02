@@ -25,11 +25,7 @@ module.exports = webpackMerge(commonConfig, {
         watchOptions: {
             aggregateTimeout: 300,
             poll: 1000
-        },
-        // All 404 requests are routed to our Angular app.
-        // historyApiFallback: {
-        //     index: 'http://localhost:8080/dist/index.html'
-        // }
+        }
     },
 
     plugins: [
