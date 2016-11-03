@@ -19,8 +19,9 @@ export class WishListListComponent implements OnInit {
   }
 
   private getWishLists(): void {
-    this.wishListService.getAll().then((data: WishList[]) => {
-      this.wishLists = data;
-    });
+    this.wishListService.getAll()
+      .then((data: WishList[]) => {
+        this.wishLists = data;
+      });
   }
 }

@@ -5,3 +5,11 @@
 - Webpack
 - ExpressJS
 - Mongoose
+
+TODO:
+- Testing
+
+```
+npm install
+npm start
+```

@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   exports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ]
 })
 export class SharedModule {}

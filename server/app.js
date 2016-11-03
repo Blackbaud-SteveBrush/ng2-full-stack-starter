@@ -1,18 +1,33 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const routes = require(__dirname + '/middleware/routes');
 const path = require('path');
-const api = require(path.join(__dirname, 'middleware', 'api'));
 const environment = process.env.NODE_ENV || 'development';
 const BUILD_PATH = 'dist';
+const app = express();
 
 // Express app
-const app = express();
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', BUILD_PATH)));
 
-// Routes
-app.use('/api', api());
+app.use(session({
+    secret: 'holdontoyourbutts',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.set('port', process.env.PORT || '3000');
+app.use('/', routes);
+
+console.log("Executing server in " + environment + " mode.");
 
 if (environment === 'production') {
     app.get('/*', (req, res) => {
@@ -47,5 +62,16 @@ if (environment === 'production') {
         });
     });
 }
+
+// Catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    var err;
+    err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// Error handler
+app.use(require(__dirname + '/middleware/error-handler'));
 
 module.exports = app;

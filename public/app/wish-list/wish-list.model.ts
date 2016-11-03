@@ -1,4 +1,4 @@
 export class WishList {
-  id: number;
+  _id: number;
   name: string;
 }

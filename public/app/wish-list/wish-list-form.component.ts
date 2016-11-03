@@ -32,4 +32,16 @@ export class WishListFormComponent implements OnInit {
         });
     });
   }
+
+  create(): void {
+    this.wishListService.create(this.formData).then((data: Object) => {
+      console.log("CREATE!", data);
+    });
+  }
+
+  update(): void {
+    this.wishListService.update(this.formData._id, this.formData).then((data: Object) => {
+      console.log("UPDATE!", data);
+    });
+  }
 }
