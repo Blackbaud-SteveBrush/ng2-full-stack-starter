@@ -113,9 +113,9 @@ function CrudRouter(options) {
         for (k in self.routes) {
             if (self.routes.hasOwnProperty(k)) {
                 if (self.settings.authorization[k] && self.settings.authorization[k].permission) {
-                    self.routes[k].unshift(checkPermissionMiddleware);
+                    //self.routes[k].unshift(checkPermissionMiddleware);
                 }
-                self.routes[k].unshift(addRequestObjectToService);
+                //self.routes[k].unshift(addRequestObjectToService);
             }
         }
 

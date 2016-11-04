@@ -1,23 +1,42 @@
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-export class CrudAuthorization {
-  constructor(method: string, permission: string, message?: string) {}
-}
 
 export abstract class Crudable {
+
   protected http: Http;
   protected resourceName: string;
-  protected authorizations: CrudAuthorization[];
+  protected authorizations: Object = {
+    delete: {
+      permission: null,
+      message: "You do not have permission to delete that resource."
+    },
+    get: {
+      permission: null,
+      message: "You do not have permission to read that resource."
+    },
+    getAll: {
+      permission: null,
+      message: "You do not have permission to read those resources."
+    },
+    post: {
+      permission: null,
+      message: "You do not have permission to create that resource."
+    },
+    put: {
+      permission: null,
+      message: "You do not have permission to update that resource."
+    }
+  };
 
-  constructor(
-    http: Http,
-    resourceName: string,
-    authorizations?: CrudAuthorization[]
-  ) {
+  constructor(http: Http, resourceName: string, authorizations?: Object) {
     this.http = http;
     this.resourceName = resourceName;
-    this.authorizations = authorizations;
+    for (let k in this.authorizations) {
+      if (this.authorizations.hasOwnProperty(k) && authorizations.hasOwnProperty(k)) {
+        this.authorizations[k] = Object.assign({}, this.authorizations[k], authorizations[k]);
+      }
+    }
   }
 
   create(data: any): Promise<any> {
@@ -38,7 +57,7 @@ export abstract class Crudable {
       .catch(this.handleError);
   }
 
-  getById(id: number): Promise<any> {
+  getById(id: string): Promise<any> {
     return this.http.get('/api/' + this.resourceName + '/' + id)
       .toPromise()
       .then((res: any) => {
@@ -47,8 +66,8 @@ export abstract class Crudable {
       .catch(this.handleError);
   }
 
-  update(id: number, data: any): Promise<any> {
-    return this.http.put('/api/' + this.resourceName + '/', data)
+  update(id: string, data: any): Promise<any> {
+    return this.http.put('/api/' + this.resourceName + '/' + id, data)
       .toPromise()
       .then((res: any) => {
         return res.json();

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf -- dist && webpack --config ./config/webpack.dev.config.js",
     "setup": "node ./bin/setup.js",
-    "start": "node ./bin/start.js",
+    "start": "nodemon ./bin/start.js",
     "start:watch": "rimraf --dist && nodemon ./bin/start.js",
     "postinstall": "typings install"
   },

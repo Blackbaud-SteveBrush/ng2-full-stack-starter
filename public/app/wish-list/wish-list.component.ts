@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WishListService } from './wish-list.service';
+import { WishListService } from '../shared/services/wish-list.service';
 
 
 @Component({

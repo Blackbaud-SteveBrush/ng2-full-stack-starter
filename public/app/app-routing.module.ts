@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'wish-lists',
     loadChildren: './wish-list/index.ts#WishListModule'
-  }
+  },
+  // {
+  //   path: 'users',
+  //   loadChildren: './user/index.ts#UserModule'
+  // }
 ];
 
 @NgModule({

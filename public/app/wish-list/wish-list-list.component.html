@@ -4,8 +4,8 @@
 </p>
 <ul>
   <li *ngFor="let wishList of wishLists">
-    <span>{{wishList.name}}</span>
-    <a [routerLink]="['/wish-lists', wishList.id]">View</a>
-    <a [routerLink]="['/wish-lists', wishList.id, 'edit']">Edit</a>
+    {{wishList.name}}
+    <a [routerLink]="['/wish-lists', wishList._id]">View</a>
+    <a [routerLink]="['/wish-lists', wishList._id, 'edit']">Edit</a>
   </li>
 </ul>
