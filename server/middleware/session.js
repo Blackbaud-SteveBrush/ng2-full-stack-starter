@@ -71,7 +71,7 @@ module.exports = function (router) {
 
     router.get('/session/status', function (req, res) {
         if (!req.isAuthenticated()) {
-            return res.status(200).json({
+            return res.status(403).json({
                 status: false,
                 user: null
             });

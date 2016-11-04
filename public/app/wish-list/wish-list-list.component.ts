@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WishList } from './wish-list.model';
+import { WishList } from './wish-list.interface';
 import { WishListService } from '../shared/services/wish-list.service';
 
 
@@ -20,8 +20,6 @@ export class WishListListComponent implements OnInit {
 
   private getWishLists(): void {
     this.wishListService.getAll()
-      .then((data: WishList[]) => {
-        this.wishLists = data;
-      });
+      .then(data => this.wishLists = data);
   }
 }

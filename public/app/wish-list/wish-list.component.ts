@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { WishListService } from '../shared/services/wish-list.service';
-
 
 @Component({
   template: `

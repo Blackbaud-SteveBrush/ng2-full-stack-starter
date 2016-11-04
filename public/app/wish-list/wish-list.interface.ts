@@ -1,4 +1,4 @@
-export class WishList {
+export interface WishList {
   _id: string;
   name: string;
 }

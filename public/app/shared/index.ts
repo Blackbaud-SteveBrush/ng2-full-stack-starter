@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { WishListService } from './services/wish-list.service';
+import { SessionService } from './services/session.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { WishListService } from './services/wish-list.service';
     HttpModule
   ],
   providers: [
-    WishListService
+    WishListService,
+    SessionService
   ]
 })
 export class SharedModule {}

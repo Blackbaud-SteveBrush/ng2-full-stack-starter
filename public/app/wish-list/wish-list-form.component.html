@@ -1,15 +1,15 @@
-<h2 *ngIf="thisForm.value._id">Edit {{thisForm.value.name}}</h2>
-<h2 *ngIf="!thisForm.value._id">Create Wish List</h2>
-<form [formGroup]="thisForm" (ngSubmit)="submit()" novalidate>
+<h2 *ngIf="form.value._id">Edit {{form.value.name}}</h2>
+<h2 *ngIf="!form.value._id">Create Wish List</h2>
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
 
   <input type="hidden" formControlName="_id">
 
   <label>Name:</label>
   <input type="text" formControlName="name">
-  <small [hidden]="thisForm.controls.name.valid || (thisForm.controls.name.pristine && !isSubmitted)">
+  <small [hidden]="form.controls.name.valid || (form.controls.name.pristine && !isSubmitted)">
     Name is required (minimum 5 characters).
   </small>
 
-  <button type="submit" [disabled]="isSubmitted || !thisForm.valid">Submit</button>
-
+  <button type="submit" [disabled]="isSubmitted || !form.valid">Submit</button>
+  
 </form>

@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import { WishList } from './wish-list.model';
 import { WishListService } from '../shared/services/wish-list.service';
 
 
@@ -13,8 +12,8 @@ import { WishListService } from '../shared/services/wish-list.service';
 })
 export class WishListFormComponent implements OnInit {
 
-  public isSubmitted: boolean;
-  public thisForm: FormGroup;
+  public form: FormGroup;
+  public isSubmitted: boolean = false;
 
   constructor(
     private location: Location,
@@ -28,19 +27,24 @@ export class WishListFormComponent implements OnInit {
   }
 
   create(): void {
-    let formData = this.thisForm.value;
+    let formData = this.form.value;
     this.wishListService.create(formData)
       .then(data => {
         this.isSubmitted = false;
+        alert("Success!");
+      })
+      .catch(reason => {
+        this.isSubmitted = false;
+        alert("Error: " + reason);
       });
   }
 
   submit(): void {
-    if (!this.thisForm.valid) {
+    if (!this.form.valid) {
       return;
     }
     this.isSubmitted = true;
-    if (this.thisForm.value._id) {
+    if (this.form.value._id) {
       this.update();
     } else {
       this.create();
@@ -48,17 +52,22 @@ export class WishListFormComponent implements OnInit {
   }
 
   update(): void {
-    let id = this.thisForm.value._id;
-    let formData = this.thisForm.value;
+    let id = this.form.value._id;
+    let formData = this.form.value;
     this.wishListService.update(id, formData)
       .then(data => {
         this.isSubmitted = false;
+        alert("Success!");
+      })
+      .catch(reason => {
+        this.isSubmitted = false;
+        alert("Error: " + reason);
       });
   }
 
   // Define the form fields.
   private defineFormFields(): void {
-    this.thisForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       _id: [''],
       name: ['', [<any>Validators.required, <any>Validators.minLength(5)]]
     });
@@ -69,10 +78,9 @@ export class WishListFormComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let id: string = params['id'];
       if (id) {
-        this.wishListService.getById(id)
-          .then(data => {
-            (<FormGroup>this.thisForm).patchValue(data, { onlySelf: true });
-          });
+        this.wishListService.getById(id).then(data => {
+          (<FormGroup>this.form).patchValue(data, { onlySelf: true });
+        });
       }
     });
   }

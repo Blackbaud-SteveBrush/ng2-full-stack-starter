@@ -12,13 +12,7 @@ module.exports = function (error, request, response, next) { //jshint ignore:lin
     switch (error.name) {
         default:
         case 'Error':
-            response.status(error.status || 500).json({
-                message: error.message,
-                name: error.name
-            });
-        break;
-        case 'AuthenticationError':
-            response.status(error.status || 401).json({
+            response.status(error.status || 400).json({
                 message: error.message,
                 name: error.name
             });

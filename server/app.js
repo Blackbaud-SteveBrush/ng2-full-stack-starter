@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, '..', BUILD_PATH)));
 app.use(session({
     secret: 'holdontoyourbutts',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    //maxAge: 60000
 }));
 
 app.use(passport.initialize());

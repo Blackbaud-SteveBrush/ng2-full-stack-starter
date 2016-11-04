@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CanDeactivateGuard } from './can-deactivate-guard.service';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
   {
@@ -10,17 +12,18 @@ const routes: Routes = [
   },
   {
     path: 'wish-lists',
-    loadChildren: './wish-list/index.ts#WishListModule'
+    loadChildren: './wish-list/index.ts#WishListModule',
+    canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'users',
-  //   loadChildren: './user/index.ts#UserModule'
-  // }
+  {
+    path: 'login',
+    component: LoginComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [CanDeactivateGuard]
+  providers: [CanDeactivateGuard, AuthGuard]
 })
 export class AppRoutingModule { }
