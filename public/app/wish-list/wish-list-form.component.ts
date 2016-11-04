@@ -14,6 +14,7 @@ export class WishListFormComponent implements OnInit {
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
+  public isEdit: boolean = false;
 
   constructor(
     private location: Location,
@@ -28,7 +29,21 @@ export class WishListFormComponent implements OnInit {
 
   create(): void {
     let formData = this.form.value;
+    delete formData._id;
     this.wishListService.create(formData)
+      .then(data => {
+        this.isSubmitted = false;
+        alert("Success!");
+      })
+      .catch(reason => {
+        this.isSubmitted = false;
+        alert("Error: " + reason);
+      });
+  }
+
+  delete(): void {
+    this.isSubmitted = true;
+    this.wishListService.delete(this.form.value._id)
       .then(data => {
         this.isSubmitted = false;
         alert("Success!");
@@ -78,6 +93,7 @@ export class WishListFormComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let id: string = params['id'];
       if (id) {
+        this.isEdit = true;
         this.wishListService.getById(id).then(data => {
           (<FormGroup>this.form).patchValue(data, { onlySelf: true });
         });

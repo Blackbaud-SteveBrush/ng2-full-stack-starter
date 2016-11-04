@@ -48,6 +48,15 @@ export abstract class Crudable {
       .catch(this.handleError);
   }
 
+  delete(id: string): Promise<any> {
+    return this.http.delete('/api/' + this.resourceName + '/' + id)
+      .toPromise()
+      .then((res: any) => {
+        return res.json();
+      })
+      .catch(this.handleError);
+  }
+
   getAll(): Promise<any[]> {
     return this.http.get('/api/' + this.resourceName + '/')
       .toPromise()
