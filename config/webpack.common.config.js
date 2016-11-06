@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const helpers = require('./helpers');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BUILD_PATH = 'dist';
 
 module.exports = {
@@ -55,13 +56,19 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                exclude: /node_modules/,
+                exclude: helpers.root('public/app'),
+                loader: ExtractTextPlugin.extract('raw-loader', 'raw-loader!sass-loader')
+            },
+            {
+                test: /\.scss$/,
+                include: helpers.root('public/app'),
                 loaders: ['raw-loader', 'sass-loader']
             }
         ]
     },
 
     plugins: [
+        new ExtractTextPlugin('styles.css'),
         new webpack.optimize.CommonsChunkPlugin({
             name: [
                 'app',

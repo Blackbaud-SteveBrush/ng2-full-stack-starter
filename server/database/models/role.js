@@ -1,6 +1,11 @@
-var mongoose;
-mongoose = require('mongoose');
-module.exports = mongoose.model('Role', new mongoose.Schema({
+const mongoose = require('mongoose');
+const collection = 'Role';
+const schema = new mongoose.Schema({
+    _permissions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Permission',
+        unique: true
+    }],
     isDefault: {
         type: Boolean,
         default: false
@@ -10,12 +15,9 @@ module.exports = mongoose.model('Role', new mongoose.Schema({
         uppercase: true,
         unique: true,
         required: true
-    },
-    _permissions: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Permission',
-        unique: true
-    }]
+    }
 }, {
-    collection: 'Role'
-}));
+    collection: collection
+});
+
+module.exports = mongoose.model(collection, schema);

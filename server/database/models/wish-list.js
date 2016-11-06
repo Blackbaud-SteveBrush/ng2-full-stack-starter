@@ -1,13 +1,22 @@
-var mongoose;
-
-mongoose = require('mongoose');
-
-module.exports = mongoose.model('WishList', new mongoose.Schema({
+const mongoose = require('mongoose');
+const collection = 'WishList';
+const schema = new mongoose.Schema({
+    _gifts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Gift'
+    }],
+    _user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     name: {
         type: String,
         required: true,
         trim: true
     }
 }, {
-    collection: 'WishList'
-}));
+    collection: collection
+});
+
+module.exports = mongoose.model(collection, schema);

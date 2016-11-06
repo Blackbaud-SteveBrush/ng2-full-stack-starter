@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { SessionService } from '../shared/services/session.service';
+import { SessionService } from '../shared/services/';
 
 @Component({
   template: require('./login.component.html')
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private http: Http,
     private formBuilder: FormBuilder,
+    private router:Router,
     private sessionService: SessionService) { }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.sessionService.login(this.form.value.emailAddress, this.form.value.password)
       .then(data => {
         this.isSubmitted = false;
-        alert("Success!");
+        this.router.navigate(['/dashboard']);
       })
       .catch(reason => {
         this.isSubmitted = false;

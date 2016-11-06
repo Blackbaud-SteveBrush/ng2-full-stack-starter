@@ -1,3 +1,5 @@
+'use strict';
+
 var async,
     merge,
     mongoose;
@@ -54,34 +56,11 @@ function DatabaseObject(options) {
             .populate(getPopulations(doPopulate))
             .exec();
     };
-
-    self.updateMany = function (dataArray, dataResolve) {
-        return new Promise(function (resolve, reject) {
-            async.eachSeries(
-                dataArray,
-                function each(data, next) {
-                    self.updateById(data._id, data)
-                        .then(function () {
-                            next();
-                        })
-                        .catch(next);
-                },
-                function done(error) {
-                    if (error) {
-                        return reject(error);
-                    }
-                    resolve(dataResolve || {});
-                }
-            );
-        });
-    };
 }
 
 DatabaseObject.prototype = {
     create: function (data) {
-        var self;
-
-        self = this;
+        let self = this;
 
         function afterCreate(doc, data) {
             if (typeof self.settings.onAfterCreate === 'function') {
@@ -101,8 +80,7 @@ DatabaseObject.prototype = {
         }
 
         function create(data) {
-            var newDocument;
-            newDocument = new self.model(data);
+            let newDocument = new self.model(data);
             return newDocument.save(self.request)
                 .then(function (doc) {
                     return afterCreate(doc, data);
@@ -112,8 +90,7 @@ DatabaseObject.prototype = {
         return beforeCreate(data);
     },
     deleteAll: function () {
-        var self;
-        self = this;
+        let self = this;
         return self.model
             .remove({})
             .exec()
@@ -136,10 +113,7 @@ DatabaseObject.prototype = {
             });
     },
     getAll: function (doPopulate) {
-        var self;
-
-        self = this;
-
+        let self = this;
         return self
             .getMany({}, doPopulate)
             .then(function (data) {
@@ -150,10 +124,7 @@ DatabaseObject.prototype = {
             });
     },
     getById: function (id, doPopulate) {
-        var self;
-
-        self = this;
-
+        let self = this;
         return this
             .getOne({
                 _id: id
@@ -171,10 +142,7 @@ DatabaseObject.prototype = {
         }, doPopulate);
     },
     getBySlug: function (slug, doPopulate) {
-        var self;
-
-        self = this;
-
+        let self = this;
         return this
             .getOne({
                 slug: slug
@@ -187,9 +155,7 @@ DatabaseObject.prototype = {
             });
     },
     updateById: function (id, data) {
-        var self;
-
-        self = this;
+        let self = this;
 
         function afterUpdate(doc) {
             if (typeof self.settings.onAfterUpdate === 'function') {

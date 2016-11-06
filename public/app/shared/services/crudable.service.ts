@@ -2,7 +2,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 
-export abstract class Crudable {
+export abstract class CrudableService {
 
   protected http: Http;
   protected resourceName: string;

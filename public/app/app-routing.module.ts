@@ -12,7 +12,15 @@ const routes: Routes = [
   },
   {
     path: 'wish-lists',
-    loadChildren: './wish-list/index.ts#WishListModule',
+    loadChildren: './wish-lists/index.ts#WishListModule'
+  },
+  {
+    path: 'users',
+    loadChildren: './users/index.ts#UserModule'
+  },
+  {
+    path: 'dashboard',
+    loadChildren: './dashboard/index.ts#DashboardModule',
     canActivate: [AuthGuard]
   },
   {

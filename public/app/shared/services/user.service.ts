@@ -3,17 +3,17 @@ import { Http } from '@angular/http';
 import { CrudableService } from './crudable.service';
 
 @Injectable()
-export class WishListService extends CrudableService {
+export class UserService extends CrudableService {
   constructor(http: Http) {
-    super(http, 'wish-lists', {
+    super(http, 'users', {
       delete: {
-        permission: 'DELETE_WISH_LIST'
+        permission: 'DELETE_USER'
       },
       post: {
-        permission: 'CREATE_WISH_LIST'
+        permission: 'CREATE_USER'
       },
       put: {
-        permission: 'UPDATE_WISH_LIST'
+        permission: 'UPDATE_USER'
       }
     });
   }

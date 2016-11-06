@@ -32,12 +32,15 @@ module.exports = function (router) {
     // Add a method to the request to check permissions.
     router.use(function (req, res, next) {
         req.isAuthorized = function (permission) {
+
             var err;
+            err = new Error("Forbidden.");
+            err.status = 403;
+
             if (!req.isAuthenticated() || !req.permissions || req.permissions.indexOf(permission) === -1) {
-                err = new Error("Forbidden.");
-                err.status = 403;
                 return err;
             }
+
             return null;
         };
         next();
@@ -56,7 +59,11 @@ module.exports = function (router) {
                     return next('Could not log in user!');
                 }
                 res.status(200).json({
-                    message: 'Login successful!'
+                    message: 'Login successful!',
+                    user: {
+                        _id: user._id,
+                        emailAddress: user.emailAddress
+                    }
                 });
             });
         })(req, res, next);

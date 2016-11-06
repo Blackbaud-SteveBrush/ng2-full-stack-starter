@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { WishList } from './wish-list.interface';
-import { WishListService } from '../shared/services/wish-list.service';
-
+import { IWishList } from '../../shared/interfaces';
+import { WishListService } from '../../shared/services';
 
 @Component({
-  selector: 'wish-list-list',
-  template: require('./wish-list-list.component.html')
+  template: require('./dashboard-wish-lists.component.html')
 })
-export class WishListListComponent implements OnInit {
-
-  wishLists: WishList[];
+export class DashboardWishListsComponent implements OnInit {
+  public wishLists: IWishList[];
 
   constructor(
     private wishListService: WishListService) { }

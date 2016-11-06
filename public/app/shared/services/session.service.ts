@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { IUser } from '../interfaces/';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class SessionService {
 
   private isLoggedIn: boolean = false;
+  private user: IUser;
 
   constructor(private http: Http) { }
 
@@ -15,10 +17,17 @@ export class SessionService {
       password: password
     }).toPromise()
       .then(res => {
+        let data = res.json();
         this.isLoggedIn = true;
-        return res.json();
+        this.user = <IUser>data.user;
+        console.log("Set user to:", this.user);
+        return data;
       })
       .catch(this.handleError);
+  }
+
+  getUser(): IUser {
+    return this.user;
   }
 
   getStatus(): boolean {

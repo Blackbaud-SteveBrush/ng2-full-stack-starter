@@ -1,3 +1,5 @@
+'use strict';
+
 const DatabaseObject = require('../../libs/database-object');
 const utils = require('../../libs/utils');
 

@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const collection = 'Permission';
+const collection = 'Gift';
 const schema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        uppercase: true,
-        unique: true
+        trim: true
     }
 }, {
     collection: collection

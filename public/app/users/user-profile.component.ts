@@ -2,27 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { WishList } from './wish-list.interface';
-import { WishListService } from '../shared/services/wish-list.service';
+import { IUser } from '../shared/interfaces';
+import { UserService } from '../shared/services/';
 
 @Component({
-  selector: 'wish-list-detail',
-  template: require('./wish-list-detail.component.html')
+  template: require('./user-profile.component.html')
 })
-export class WishListDetailComponent implements OnInit {
-  wishList: WishList;
+export class UserProfileComponent implements OnInit {
+
+  public user: IUser;
 
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private wishListService: WishListService) {}
+    private userService: UserService) {}
 
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
       let id: string = params['id'];
-      this.wishListService.getById(id)
+      this.userService.getById(id)
         .then(data => {
-          this.wishList = data;
+          this.user = data;
         });
     });
   }
