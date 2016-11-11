@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { CrudableService } from './crudable.service';
+import 'rxjs/add/operator/toPromise';
+
 
 @Injectable()
 export class WishListService extends CrudableService {
@@ -16,5 +18,13 @@ export class WishListService extends CrudableService {
         permission: 'UPDATE_WISH_LIST'
       }
     });
+  }
+
+  getAllByUserId(id: string, doPopulate?: boolean): Promise<any> {
+    let options = new RequestOptions({
+      search: new URLSearchParams(this.parseDoPopulate(doPopulate))
+    });
+    return this.http.get('/api/wish-lists/user/' + id, options).toPromise()
+      .then(data => data.json());
   }
 }

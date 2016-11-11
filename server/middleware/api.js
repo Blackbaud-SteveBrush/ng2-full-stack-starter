@@ -1,5 +1,6 @@
 const CrudRouter = require('../libs/crud-router');
 const UserService = require('../database/services/user');
+const WishListService = require('../database/services/wish-list');
 const utils = require('../libs/utils');
 
 const permissionRouter = new CrudRouter({
@@ -67,10 +68,20 @@ const wishListRouter = new CrudRouter({
 });
 
 module.exports = function (router) {
+
     permissionRouter.attach(router);
     roleRouter.attach(router);
     userRouter.attach(router);
     wishListRouter.attach(router);
+
+    router.route('/api/wish-lists/user/:id')
+        .get(function (req, res, next) {
+            WishListService.getAllByUserId(req.params.id, req.query.doPopulate)
+                .then(function (data) {
+                    utils.parseSuccess(res, data);
+                })
+                .catch(next);
+        });
 
     router.route('/api/users/role/:name')
         .get(function (req, res, next) {
